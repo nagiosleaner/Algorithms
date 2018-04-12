@@ -9,7 +9,7 @@ public class BinarySearch {
 		Scanner sc = new Scanner(System.in);
 		while (sc.hasNext()) {
 			int a = sc.nextInt();
-			System.out.print(a);
+			System.out.print(a+a);
 		}
 		sc.close();
 	}
