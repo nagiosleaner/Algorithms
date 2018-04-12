@@ -8,7 +8,8 @@ public class BinarySearch {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		while (sc.hasNext()) {
-			
+			int a = sc.nextInt();
+			System.out.print(a);
 		}
 		sc.close();
 	}
