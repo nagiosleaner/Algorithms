@@ -14,55 +14,53 @@ public class BinarySearch {
 				arr[i] = sc.nextInt();
 			}
 			int result = solution(N,M,arr);
-			System.out.println(result);
+			if (result <0 ) {
+				System.out.println("Error");
+			}else {
+				System.out.println("Exist");
+			}
 		}
 		sc.close();
 	}
-
 	private static int solution(int n, int m, int[] arr) {
-		QuickSort(arr,0,arr.length-1);
-		int result = 0;
-		int lo = 0;
-		int hi = arr.length-1;
-		while (lo<=hi) {
-			int mid = lo+(hi-lo)/2;
-			if (m<arr[mid]) {
-				hi = mid-1;
-			}else if (m>arr[mid]) {
-				lo = mid+1;
-			}else {
-				result=mid;
-			}
+		int low = 0;
+		int high = arr.length-1;
+		QuickSort(arr,low,high);
+		while (low <= high) {
+			int 	mid = low + ( high - low)/2;
+			if 				(m<arr[mid])		high = mid-1;
+			else if 	(m>arr[mid])		low = mid+1;
+			else 									return mid;
 		}
-		return result;
+		return -1;
 	}
-
-	private static void QuickSort(int[] arr, int low, int high) {
+	private static void QuickSort(int[] arr, int indexStart, int indexEnd) {
 		// TODO Auto-generated method stub
-		int i, j, x;
-		if (low<high) {
-			i=low;
-			j=high;
-			x=arr[0];
-			while (i < j) {
-				while (i < j && arr[j] > x) {
-					j--;
-				}
-				if (i < j) {
-					arr[i] = arr[j];
-					i++;
-				}
-				while (i < j && arr[i] < x) {
-					i++;
-				}
-				if (i < j) {
-					arr[j] = arr[i];
-					j--;
-				}
-			}
-			arr[i] = x;
-			QuickSort(arr, low, i-1);
-			QuickSort(arr, i+1, high);
-		}
+		int pivotIndex = (indexStart+indexEnd)/2;
+		//swap
+		swap(arr,pivotIndex,indexEnd);
+		
+		int k = partition(arr,indexStart-1, indexEnd,arr[indexEnd]);
+		swap(arr, k, indexEnd);
+		if ((k - indexStart)>1) 
+			QuickSort(arr, indexStart, k-1);
+		if ((indexEnd-k)>1) 
+			QuickSort(arr, k+1, indexEnd);
+	}
+	private static int partition(int[] arr, int left, int right, int pivot) {
+		do {
+			while (arr[++left] < pivot) 
+				;
+			while ((right!=0)&&arr[--right]>pivot) 
+				;
+			swap(arr, left, right);
+		} while (left < right);
+		swap(arr, left, right);
+		return left;
+	}
+	private static void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 }
